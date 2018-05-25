@@ -39,7 +39,7 @@ task jacocoTestReport(type : JacocoReport, dependsOn : 'testDebugUnitTest') {
                     '**/*_MembersInjector.*',
                     '**/*_LifecycleAdapter.*',
                     '**/Constants.class',
-                    '**/MatchesObject.class'
+                    '**/MatchesObject.*'
             ]
     )
 
