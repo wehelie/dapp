@@ -24,7 +24,6 @@ import es.dmoral.toasty.Toasty;
 public class SettingFragment extends Fragment {
 
     public static EditText userEmail;
-
     public static EditText max;
     public static EditText min;
     public static EditText reminder;
