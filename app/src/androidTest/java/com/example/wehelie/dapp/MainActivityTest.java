@@ -1,6 +1,9 @@
 package com.example.wehelie.dapp;
 
 
+import android.content.pm.ActivityInfo;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -41,6 +44,9 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
+
+
+
     private String Name = "Layth";
     private String Email = "layth@gmail.com";
     private String Username = "aardvark";
@@ -53,6 +59,9 @@ public class MainActivityTest {
     private MainActivity mActivity;
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+
+
 
     @Before
     public void setUp() {
@@ -129,6 +138,18 @@ public class MainActivityTest {
     }
 
     @Test
+    public void rotateScreenTest(){
+
+        onView(withId(R.id.goback)).perform(click());
+       onView(withId(R.id.editName)).perform(typeText(Name));
+        onView(withId(R.id.editName)).check(matches(withText(Name)));
+
+//        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+
+    @Test
     public void testUserEmail() {
         onView(withId(R.id.goback)).perform(click());
         onView(withId(R.id.editEmail)).perform(typeText(Email));
@@ -168,6 +189,7 @@ public class MainActivityTest {
         assertEquals(Constants.KEY_DESCRIPTION, "description");
     }
 
+
     @Test
     public void clickOnTabMatches() {
         Matcher<View> matcher = allOf(withText("Matches"),
@@ -198,6 +220,9 @@ public class MainActivityTest {
         onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(3), click());
     }
 
+
+
+
     @Test
     public void checkFireBaseChildExists() {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -215,6 +240,8 @@ public class MainActivityTest {
             }
         });
     }
+
+
 
 
 

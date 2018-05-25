@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements MatchesFragment.O
         setupViewPager(viewPager);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-
     }
 
 

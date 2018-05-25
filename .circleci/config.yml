@@ -233,3 +233,10 @@ workflows:
             - build_release
             - test_unit
             - test_instrumented
+
+test:
+    post:
+      - |
+        if [ master == $CIRCLE_BRANCH ]; then
+          npm run extra-tests || true
+        fi

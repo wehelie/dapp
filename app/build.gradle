@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestImplementation 'android.arch.core:core-testing:1.0.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -49,6 +51,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:15.0.0'
     implementation 'com.google.firebase:firebase-database:15.0.0'
     implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+    implementation 'android.arch.persistence.room:runtime:1.1.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
+    implementation 'io.github.inflationx:calligraphy3:3.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

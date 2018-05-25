@@ -1,9 +1,12 @@
 package com.example.wehelie.dapp;
 
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,10 +140,38 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.mMatches = mValues.get(position);
         Picasso.get().load(mValues.get(position).imageUrl).into(holder.mImageView);
         holder.mTitleView.setText(mValues.get(position).name);
+        holder.fave = mValues.get(position).liked;
 
-        holder.mView.setOnClickListener(view -> {
-            if (null != mListener) {
-                mListener.onListFragmentInteraction(holder.mMatches);
+        if (mValues.get(position).liked) {
+            holder.favoriteButton.setColorFilter(Color.RED);
+        } else {
+            holder.favoriteButton.setColorFilter(Color.LTGRAY);
+        }
+
+        holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    MatchesObject index =  mValues.get(position);
+                    Toasty.info(holder.mView.getContext(), "You liked " + mValues.get(position).name, Toast.LENGTH_LONG).show();
+                    //holder.favoriteButton.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                    mListener.onListFragmentInteraction(holder.mMatches);
+                }
+
+
+            }
+        });
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null != mListener) {
+                    mListener.onListFragmentInteraction(holder.mMatches);
+
+                }
+
+//                mValues.get(position).liked = true;
+
             }
         });
     }
@@ -155,7 +186,8 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-
+        public boolean fave;
+        public ImageButton favoriteButton;
         public final ImageView mImageView;
         public final TextView mTitleView;
         public MatchesObject mMatches;
@@ -165,20 +197,18 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             mView = view;
             mImageView = view.findViewById(R.id.card_image);
             mTitleView = view.findViewById(R.id.card_title);
+            favoriteButton = view.findViewById(R.id.favorite_button);
 
             ImageButton favoriteImageButton = itemView.findViewById(R.id.favorite_button);
-            favoriteImageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView text;
-                    Toast toast = null;
+            favoriteImageButton.setOnClickListener(view1 -> {
+                TextView text;
+                Toast toast = null;
 
-                    if (null != mListener) {
-                        mListener.onListFragmentInteraction(mMatches);
-                    }
-
-                    Toasty.info(view.getContext(), "You liked " + mTitleView.getText(), Toast.LENGTH_LONG).show();
+                if (null != mListener) {
+                    mListener.onListFragmentInteraction(mMatches);
                 }
+
+                //Toasty.info(view1.getContext(), "You liked " + mTitleView.getText(), Toast.LENGTH_LONG).show();
             });
         }
 
