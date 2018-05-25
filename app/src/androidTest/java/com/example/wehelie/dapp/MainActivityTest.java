@@ -144,9 +144,85 @@ public class MainActivityTest {
        onView(withId(R.id.editName)).perform(typeText(Name));
         onView(withId(R.id.editName)).check(matches(withText(Name)));
 
-//        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+
+    @Test
+    public void testSettingsTabEmail() {
+        String userEmail = "layth@google.com";
+        clickOnTabSettings();
+        onView(withId(R.id.userEmail)).perform(typeText(userEmail));
+
+    }
+
+    @Test
+    public void testSettingsTabGender() {
+        String gender = "Male";
+        clickOnTabSettings();
+        onView(withId(R.id.gender)).perform(typeText(gender));
+
+    }
+
+    @Test
+    public void testSettingsTabMaxDis() {
+        String max = "20 miles";
+        clickOnTabSettings();
+        onView(withId(R.id.max)).perform(typeText(max));
+
+    }
+
+
+    @Test
+    public void testSettingsTabMin() {
+        String min = "5 Miles";
+        clickOnTabSettings();
+        onView(withId(R.id.min)).perform(typeText(min));
+
+    }
+
+    @Test
+    public void testSettingsTabPrivacy() {
+        String privacy = "Public";
+        clickOnTabSettings();
+        onView(withId(R.id.gender)).perform(typeText(privacy));
+
+    }
+
+
+    @Test
+    public void testSettingsTabReminder() {
+        String reminder = "Everyday at 4pm";
+        clickOnTabSettings();
+        onView(withId(R.id.gender)).perform(typeText(reminder));
+
+    }
+
+    @Test
+    public void testSettingsTabMinAge() {
+        String minAge = "20";
+        clickOnTabSettings();
+        onView(withId(R.id.minage)).perform(typeText(minAge));
+
+    }
+
+    @Test
+    public void testSettingsTabMaxAge() {
+        String maxage = "35";
+        clickOnTabSettings();
+        onView(withId(R.id.gender)).perform(typeText(maxage));
+
+    }
+
+
+    @Test
+    public void testSettingsTabSaveButton() {
+        clickOnTabSettings();
+        onView(withId(R.id.settingsButton)).perform(click());
+
+    }
+
+
 
 
     @Test

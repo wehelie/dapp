@@ -4,7 +4,6 @@
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="date_of_birth">Date of birth</string>
-    <string name="email">Email</string>
     <string name="occupation">Occupation</string>
     <string name="submit">Submit</string>
     <string name="dd_mm_yyyy">DD/MM/YYYY</string>
@@ -28,4 +27,10 @@
     <string name="detail_location">"8 Rue Scribe, 75009 Paris, France"</string>
     <string name="like_button">like button</string>
     <string name="a_picture">a picture</string>
+    <string name="max_age">max. age</string>
+    <string name="email">Email</string>
+    <string name="min_age">min. age</string>
+    <string name="public_or_private">public or private</string>
+    <string name="max_distance">Max Distance</string>
+    <string name="male_female">Male | Female</string>
 </resources>
