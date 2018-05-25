@@ -2,6 +2,7 @@ package com.example.wehelie.dapp;
 
 
 import android.content.pm.ActivityInfo;
+import android.support.annotation.VisibleForTesting;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.RecyclerViewActions;
@@ -10,6 +11,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,16 +21,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import es.dmoral.toasty.Toasty;
+
+import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -37,6 +44,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.allOf;
 
@@ -220,6 +229,21 @@ public class MainActivityTest {
         clickOnTabSettings();
         onView(withId(R.id.settingsButton)).perform(click());
 
+    }
+
+    @Test
+    public void testSettingsTabSaveButtonEmptyFields() {
+        clickOnTabSettings();
+
+        testSettingsTabEmail();
+        testSettingsTabGender();
+        testSettingsTabMaxDis();
+        testSettingsTabMin();
+        testSettingsTabMinAge();
+        testSettingsTabMaxAge();
+        testSettingsTabPrivacy();
+        testSettingsTabReminder();
+        onView(withId(R.id.settingsButton)).perform(click());
     }
 
 
