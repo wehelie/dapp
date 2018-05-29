@@ -162,17 +162,14 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             }
         });
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mMatches);
+        holder.mView.setOnClickListener(view -> {
+            if (null != mListener) {
+                mListener.onListFragmentInteraction(holder.mMatches);
 
-                }
+            }
 
 //                mValues.get(position).liked = true;
 
-            }
         });
     }
 

@@ -65,4 +65,5 @@
             app:srcCompat="@drawable/ic_favorite"
             android:tint="@color/button_grey"/>
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>
