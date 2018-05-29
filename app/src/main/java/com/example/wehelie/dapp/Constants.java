@@ -11,5 +11,7 @@ public class Constants {
     static final String KEY_MATCHES = "Matches";
     static final String KEY_SETTINGS = "Settings";
     static final String KEY_MAINACTIVITY = "MainActivity";
-    public static final String OKAY200 = "Okay 200!";
+    static final String OKAY200 = "Okay 200!";
+    static final String KEY_LAT = "LAT";
+    static final String KEY_LNG = "LONG";
 }

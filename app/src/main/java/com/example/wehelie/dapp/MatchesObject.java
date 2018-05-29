@@ -10,12 +10,16 @@ public class MatchesObject implements Parcelable  {
     public String name;
     public String uid;
     public String imageUrl;
+    public String lat;
+    public String longitude;
 
     public MatchesObject(Parcel in) {
 
         liked = in.readByte() != 0;
         name = in.readString();
         imageUrl = in.readString();
+        lat = in.readString();
+        longitude = in.readString();
     }
 
     public MatchesObject() {
@@ -48,5 +52,7 @@ public class MatchesObject implements Parcelable  {
         dest.writeString(imageUrl);
         dest.writeByte((byte) (liked ? 1 : 0));
         dest.writeString(name);
+        dest.writeString(lat);
+        dest.writeString(longitude);
     }
 }

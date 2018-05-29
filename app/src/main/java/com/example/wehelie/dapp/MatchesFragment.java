@@ -1,9 +1,13 @@
 package com.example.wehelie.dapp;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +40,13 @@ import es.dmoral.toasty.Toasty;
 
 
 public class MatchesFragment extends Fragment {
+
+    Button btnShowLocation;
+    GPSTracker gps;
+
+    private MatchesFragment tabLayout;
+    private static double Latitude;
+    private static double Longitude;
     private List<MatchesObject> mDataSet;
     private OnListFragmentInteractionListener mListener;
 
@@ -47,6 +58,7 @@ public class MatchesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
@@ -66,9 +78,27 @@ public class MatchesFragment extends Fragment {
                 }
         );
 
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        gps = new GPSTracker(getActivity());
+
+
+        if(gps.canGetLocation()) {
+            Latitude = gps.getLatitude();
+            Longitude = gps.getLongitude();
+            // \n is for new line
+            Toast.makeText(getActivity(), "Matches Locations is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
+        } else {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
+        }
         return recyclerView;
 
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

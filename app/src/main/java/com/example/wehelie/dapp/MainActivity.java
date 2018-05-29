@@ -3,6 +3,7 @@ package com.example.wehelie.dapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,13 +31,15 @@ public class MainActivity extends AppCompatActivity implements MatchesFragment.O
     // GPSTracker class
     GPSTracker gps;
 
-    private static String name, username, email, age, occupation, description;
+    private static String name, username, email, age, occupation, description,lat,lng;
     private static String Name;
     private static String Username;
     private static String Age;
     private static String Email;
     private static String Occupation;
     private static String Description;
+    private static double Latitude;
+    private static double Longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements MatchesFragment.O
                 ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 if(gps.canGetLocation()) {
 
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
+                    Latitude = gps.getLatitude();
+                    Longitude = gps.getLongitude();
 
                     // \n is for new line
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
                 } else {
                     // Can't get location.
                     // GPS or network is not enabled.
@@ -82,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements MatchesFragment.O
                 age = b.getString(Constants.KEY_AGE);
                 occupation = b.getString(Constants.KEY_OCCUPATION);
                 description = b.getString(Constants.KEY_DESCRIPTION);
+                lat = b.getString(Constants.KEY_LAT);
+                lng = b.getString(Constants.KEY_LNG);
             }
         }
 
