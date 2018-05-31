@@ -34,4 +34,6 @@
     <string name="public_or_private">public or private</string>
     <string name="max_distance">Max Distance</string>
     <string name="male_female">Male | Female</string>
+
+    <string name="distancemsg" formatted="false">Distance: %1$s miles</string>
 </resources>

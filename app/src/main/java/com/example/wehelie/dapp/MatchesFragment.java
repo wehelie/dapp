@@ -1,8 +1,11 @@
 package com.example.wehelie.dapp;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
+import android.location.Location;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -38,15 +41,20 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+import static android.app.PendingIntent.getActivities;
+import static android.app.PendingIntent.getActivity;
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
+
 
 public class MatchesFragment extends Fragment {
 
     Button btnShowLocation;
-    GPSTracker gps;
+    GPSTracker gpsTracker;
 
     private MatchesFragment tabLayout;
-    private static double Latitude;
-    private static double Longitude;
+    double Latitude;
+    double Longitude;
     private List<MatchesObject> mDataSet;
     private OnListFragmentInteractionListener mListener;
 
@@ -78,22 +86,6 @@ public class MatchesFragment extends Fragment {
                 }
         );
 
-        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        gps = new GPSTracker(getActivity());
-
-
-        if(gps.canGetLocation()) {
-            Latitude = gps.getLatitude();
-            Longitude = gps.getLongitude();
-            // \n is for new line
-            Toast.makeText(getActivity(), "Matches Locations is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
-        } else {
-            // Can't get location.
-            // GPS or network is not enabled.
-            // Ask user to enable GPS/network in settings.
-            gps.showSettingsAlert();
-        }
         return recyclerView;
 
     }
@@ -135,6 +127,7 @@ public class MatchesFragment extends Fragment {
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<MatchesObject> mValues;
+    public double startLat, startLong;
     private final MatchesFragment.OnListFragmentInteractionListener mListener;
 
     public RecyclerViewAdapter(List<MatchesObject> matches, MatchesFragment.OnListFragmentInteractionListener listener) {
@@ -157,6 +150,14 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         diffResult.dispatchUpdatesTo(this);
     }
 
+    public void setLatLong(Double latitude, Double longitude){
+        startLat = latitude;
+        startLong = longitude;
+        notifyDataSetChanged();
+    }
+
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -167,15 +168,42 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        String TAG = "Inside the Viewholder";
         holder.mMatches = mValues.get(position);
         Picasso.get().load(mValues.get(position).imageUrl).into(holder.mImageView);
         holder.mTitleView.setText(mValues.get(position).name);
         holder.fave = mValues.get(position).liked;
+        holder.lat = mValues.get(position).lat;
 
-        if (mValues.get(position).liked) {
-            holder.favoriteButton.setColorFilter(Color.RED);
-        } else {
+        // from phone
+        double phoneLat = Double.parseDouble(String.valueOf(holder.Latitude));
+        double phoneLong = Double.parseDouble(String.valueOf(holder.Longitude));
+
+        // from firebase
+        double fireBaseLat =  Double.parseDouble(holder.mMatches.lat);
+        double fireBaseLong =  Double.parseDouble(holder.mMatches.longitude);
+
+        float[] distanceMatch = new float[1];
+
+        Location.distanceBetween(startLat, startLong,
+                Double.parseDouble(holder.mMatches.lat), Double.parseDouble(holder.mMatches.longitude),
+                distanceMatch);
+        holder.matchDistance.setText(
+                holder.matchDistance.getContext()
+                        .getString(R.string.distancemsg,
+                                String.format("%.01f", distanceMatch[0] / 1609.34)));
+        //Log.d(TAG, "LAT FROM MAIN" + MatchesFragment)
+
+        Log.d(TAG, " LAT -----> FROM PHONE " + holder.Longitude);
+
+
+
+
+        if (!holder.mMatches.liked) {
+           // holder.favoriteButton.setColorFilter(Color.RED);
             holder.favoriteButton.setColorFilter(Color.LTGRAY);
+        } else {
+            holder.favoriteButton.setColorFilter(Color.RED);
         }
 
         holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -214,10 +242,16 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public boolean fave;
+        public double Latitude;
+        public double Longitude;
+        public TextView matchDistance;
+
         public ImageButton favoriteButton;
         public final ImageView mImageView;
         public final TextView mTitleView;
         public MatchesObject mMatches;
+        public String lat;
+        public MatchesObject lng;
 
         public ViewHolder(View view) {
             super(view);
@@ -225,6 +259,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             mImageView = view.findViewById(R.id.card_image);
             mTitleView = view.findViewById(R.id.card_title);
             favoriteButton = view.findViewById(R.id.favorite_button);
+            matchDistance = view.findViewById(R.id.matchDistance);
 
             ImageButton favoriteImageButton = itemView.findViewById(R.id.favorite_button);
             favoriteImageButton.setOnClickListener(view1 -> {
@@ -237,6 +272,26 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
                 //Toasty.info(view1.getContext(), "You liked " + mTitleView.getText(), Toast.LENGTH_LONG).show();
             });
+
+            GPSTracker gpsTracker;
+
+            gpsTracker = new GPSTracker(view.getContext());
+
+            ActivityCompat.requestPermissions((Activity) view.getContext(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            if(gpsTracker.canGetLocation()) {
+
+                 Latitude = gpsTracker.getLatitude();
+                 Longitude = gpsTracker.getLongitude();
+
+                // \n is for new line
+                Toast.makeText(view.getContext(), "Your Location is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
+
+            } else {
+                // Can't get location.
+                // GPS or network is not enabled.
+                // Ask user to enable GPS/network in settings.
+                gpsTracker.showSettingsAlert();
+            }
         }
 
         @Override

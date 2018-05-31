@@ -26,50 +26,44 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements MatchesFragment.OnListFragmentInteractionListener {
-    Button btnShowLocation;
+    GPSTracker gpsTracker;
 
-    // GPSTracker class
-    GPSTracker gps;
-
-    private static String name, username, email, age, occupation, description,lat,lng;
+    private static String name, username, email, age, occupation, description;
     private static String Name;
     private static String Username;
     private static String Age;
     private static String Email;
     private static String Occupation;
     private static String Description;
-    private static double Latitude;
-    private static double Longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
+       // btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        btnShowLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gps = new GPSTracker(MainActivity.this);
+
+                gpsTracker = new GPSTracker(MainActivity.this);
 
                 ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-                if(gps.canGetLocation()) {
+                if(gpsTracker.canGetLocation()) {
 
-                    Latitude = gps.getLatitude();
-                    Longitude = gps.getLongitude();
+                    double Latitude = gpsTracker.getLatitude();
+                    double Longitude = gpsTracker.getLongitude();
 
                     // \n is for new line
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
+
+
                 } else {
                     // Can't get location.
                     // GPS or network is not enabled.
                     // Ask user to enable GPS/network in settings.
-                    gps.showSettingsAlert();
+                    gpsTracker.showSettingsAlert();
                 }
-            }
-        });
+
 
         setSupportActionBar(toolbar);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -86,13 +80,11 @@ public class MainActivity extends AppCompatActivity implements MatchesFragment.O
                 age = b.getString(Constants.KEY_AGE);
                 occupation = b.getString(Constants.KEY_OCCUPATION);
                 description = b.getString(Constants.KEY_DESCRIPTION);
-                lat = b.getString(Constants.KEY_LAT);
-                lng = b.getString(Constants.KEY_LNG);
             }
         }
 
         setupViewPager(viewPager);
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
     }
 

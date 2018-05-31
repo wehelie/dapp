@@ -4,8 +4,6 @@ import android.os.Parcelable;
 import android.os.Parcel;
 
 public class MatchesObject implements Parcelable  {
-
-
     public boolean liked;
     public String name;
     public String uid;

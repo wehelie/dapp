@@ -19,13 +19,6 @@
             android:layout_height="match_parent"
            />
 
-        <Button android:id="@+id/btnShowLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show Location"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
-
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
