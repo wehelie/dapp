@@ -49,12 +49,8 @@ import static android.content.Intent.getIntentOld;
 
 public class MatchesFragment extends Fragment {
 
-    Button btnShowLocation;
-    GPSTracker gpsTracker;
 
     private MatchesFragment tabLayout;
-    double Latitude;
-    double Longitude;
     private List<MatchesObject> mDataSet;
     private OnListFragmentInteractionListener mListener;
 
@@ -127,7 +123,7 @@ public class MatchesFragment extends Fragment {
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<MatchesObject> mValues;
-    public double startLat, startLong;
+    private double startLat, startLong;
     private final MatchesFragment.OnListFragmentInteractionListener mListener;
 
     public RecyclerViewAdapter(List<MatchesObject> matches, MatchesFragment.OnListFragmentInteractionListener listener) {
@@ -185,40 +181,48 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
         float[] distanceMatch = new float[1];
 
-        Location.distanceBetween(startLat, startLong,
-                Double.parseDouble(holder.mMatches.lat), Double.parseDouble(holder.mMatches.longitude),
-                distanceMatch);
-        holder.matchDistance.setText(
-                holder.matchDistance.getContext()
-                        .getString(R.string.distancemsg,
-                                String.format("%.01f", distanceMatch[0] / 1609.34)));
-        //Log.d(TAG, "LAT FROM MAIN" + MatchesFragment)
+        Location.distanceBetween(phoneLat, phoneLong, fireBaseLat, fireBaseLong, distanceMatch);
 
-        Log.d(TAG, " LAT -----> FROM PHONE " + holder.Longitude);
+       holder.matchDistance.setText(holder.matchDistance.getContext().getString(R.string.distancemsg, String.format("%.01f", distanceMatch[0] / 1609.34)));
+
+       if ((distanceMatch[0] / 1609.34) > 10) {
+           holder.mView.setVisibility(View.GONE);
+       }
 
 
 
 
-        if (!holder.mMatches.liked) {
-           // holder.favoriteButton.setColorFilter(Color.RED);
-            holder.favoriteButton.setColorFilter(Color.LTGRAY);
-        } else {
-            holder.favoriteButton.setColorFilter(Color.RED);
-        }
+        Log.d(TAG, " LONG -----> FROM PHONE " + holder.Longitude);
 
-        holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    MatchesObject index =  mValues.get(position);
-                    Toasty.info(holder.mView.getContext(), "You liked " + mValues.get(position).name, Toast.LENGTH_LONG).show();
-                    //holder.favoriteButton.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
-                    mListener.onListFragmentInteraction(holder.mMatches);
-                }
+        Log.d(TAG, " LAT -----> FROM PHONE " + holder.Latitude);
 
 
+        Log.d(TAG, " LAT -----> FROM FIREBASE " + holder.mMatches.lat);
+        Log.d(TAG, " LONG -----> FROM FIREBASE " + holder.mMatches.longitude);
+
+
+
+        holder.favoriteButton.setOnClickListener(v -> {
+
+            Context context = v.getContext();
+
+
+            if (holder.mMatches.liked) {
+                Toast.makeText(holder.mView.getContext(), "You liked " + mValues.get(position).name, Toast.LENGTH_LONG).show();
+                holder.favoriteButton.setColorFilter(Color.GRAY);
+                holder.mMatches.liked = false;
+
+            } else {
+                holder.favoriteButton.setColorFilter(Color.RED);
+                holder.mMatches.liked = true;
             }
+
+                mListener.onListFragmentInteraction(holder.mMatches);
+
+
         });
+
+
 
         holder.mView.setOnClickListener(view -> {
             if (null != mListener) {
@@ -230,6 +234,8 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -284,7 +290,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                  Longitude = gpsTracker.getLongitude();
 
                 // \n is for new line
-                Toast.makeText(view.getContext(), "Your Location is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
+                //Toast.makeText(view.getContext(), "Your Location is - \nLat: " + Latitude + "\nLong: " + Longitude, Toast.LENGTH_LONG).show();
 
             } else {
                 // Can't get location.
