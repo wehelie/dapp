@@ -1,8 +1,6 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:listitem="@layout/fragment_matches"
-    tools:context=".MatchesFragment"
     android:id="@+id/my_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +8,6 @@
     android:paddingBottom="15dp"
     android:paddingTop="15dp"
     android:scrollbars="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MatchesFragment"
+    tools:listitem="@layout/fragment_matches" />

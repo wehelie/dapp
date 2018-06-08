@@ -35,8 +35,10 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -309,7 +311,7 @@ public class MainActivityTest {
         Matcher<View> matcher = allOf(withText("Matches"),
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
-        onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(3));
+        onView(withId(R.id.my_recycler_view)).perform(scrollToPosition(3));
     }
 
     @Test
@@ -317,7 +319,7 @@ public class MainActivityTest {
         Matcher<View> matcher = allOf(withText("Matches"),
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
-        onView(withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(3), click());
+        onView(withId(R.id.my_recycler_view)).perform(scrollToPosition(3), click());
     }
 
 
@@ -340,6 +342,13 @@ public class MainActivityTest {
             }
         });
     }
+
+//    @Test
+//    public void testRecyclerView() {
+//        onView(withId(R.id.my_recycler_view))
+//                .perform(scrollToPosition(R.string.like_button))
+//                .check(matches(hasDescendant(withText(R.string.like_button))));
+//    }
 
 
 

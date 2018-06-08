@@ -32,6 +32,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="16dp"
+            android:contentDescription="@string/person_name"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/colorAccent"

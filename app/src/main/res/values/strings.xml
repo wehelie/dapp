@@ -36,4 +36,9 @@
     <string name="male_female">Male | Female</string>
 
     <string name="distancemsg" formatted="false">Distance: %1$s miles</string>
+    <string name="person_name">person name</string>
+    <string name="min_distance">Min Distance</string>
+    <string name="daily_reminder_times">Daily Reminder Times</string>
+    <string name="save">Save</string>
+    <string name="pencil">pencil</string>
 </resources>

@@ -97,7 +97,8 @@
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278" />
+        app:layout_constraintVertical_bias="0.278"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/gender"
@@ -153,7 +154,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:hint="Min Distance"
+        android:hint="@string/min_distance"
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="?attr/colorError"
@@ -175,7 +176,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:hint="Daily Reminder Times"
+        android:hint="@string/daily_reminder_times"
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="?attr/colorError"
@@ -195,7 +196,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -210,6 +211,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/pencil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"

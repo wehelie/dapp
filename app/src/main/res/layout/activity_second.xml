@@ -19,6 +19,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="name field"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
