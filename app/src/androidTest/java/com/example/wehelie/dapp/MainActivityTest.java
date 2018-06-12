@@ -399,22 +399,31 @@ public class MainActivityTest {
 
     }
 
+
     @Test
-    public void checkInputValues() {
+    public void checkEmailInput() {
         clickOnTabSettings();
-       onView(withId(R.id.userEmail)).check(matches(withText("layth@gmail.com")));
+        onView(withId(R.id.userEmail)).check(matches(withText("layth@gmail.com")));
+    }
+
+    @Test
+    public void checkGenderInput() {
+        clickOnTabSettings();
         onView(withId(R.id.gender)).check(matches(withText("male")));
+    }
+
+    @Test
+    public void checkMax() {
+        clickOnTabSettings();
         onView(withId(R.id.max)).check(matches(withText("20")));
-        onView(withId(R.id.min)).check(matches(withText("10")));
-        onView(withId(R.id.privacy)).check(matches(withText("public")));
-        onView(withId(R.id.reminder)).check(matches(withText("5pm")));
-        onView(withId(R.id.minage)).check(matches(withText("18")));
-        onView(withId(R.id.maxage)).check(matches(withText("35")));
     }
 
 
-
-
+    @Test
+    public void checkMin() {
+        clickOnTabSettings();
+        onView(withId(R.id.min)).check(matches(withText("10")));
+    }
 
 
 }
