@@ -55,16 +55,16 @@
 
         <ImageButton
             android:id="@+id/favorite_button"
-            android:clickable="true"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="45dp"
             android:layout_height="@dimen/cards_button_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="29dp"
+            android:clickable="true"
             android:contentDescription="@string/like_button"
-            app:srcCompat="@drawable/ic_favorite"
-            android:tint="@color/button_grey"/>
+            android:tint="@color/button_grey"
+            app:srcCompat="@drawable/ic_favorite" />
 
         <TextView
             android:id="@+id/matchDistance"

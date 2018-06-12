@@ -28,9 +28,9 @@ public class FirebaseMatchViewModel {
         );
     }
 
-    public void fetchMathesInformation(String key) {
-
-    }
+//    public void fetchMathesInformation(String key) {
+//
+//    }
 
     public void updateMatchId(MatchesObject matches) {
         model.updateMatchId(matches);

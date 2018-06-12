@@ -2,6 +2,9 @@ package com.example.wehelie.dapp;
 
 
 import android.content.pm.ActivityInfo;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -24,7 +27,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
@@ -290,13 +292,12 @@ public class MainActivityTest {
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
     }
-
     @Test
     public void scrollToSpecificRecycleViewer() {
         Matcher<View> matcher = allOf(withText("Matches"),
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
-        onView(withId(R.id.my_recycler_view)).perform(scrollToPosition(3));
+        onView(ViewMatchers.withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(1));
     }
 
     @Test
@@ -304,9 +305,9 @@ public class MainActivityTest {
         Matcher<View> matcher = allOf(withText("Matches"),
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
-        onView(withId(R.id.my_recycler_view)).perform(scrollToPosition(3), click());
+        //onView(withId(R.id.my_recycler_view)).perform(scrollToPosition(3), click());
+        onView(ViewMatchers.withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(1),click());
     }
-
 
 
 
@@ -348,14 +349,20 @@ public class MainActivityTest {
         clickOnTabSettings();
     }
 
+    @Test
+    public void scrollToPosition() {
+        clickOnTabMatches();
+        onView(ViewMatchers.withId(R.id.my_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(1, ViewActions.longClick()));
+    }
 
 
+    @Test
+    public void clickOnFavButtonOnce() {
+        clickOnTabMatches();
+        onView(ViewMatchers.withId(R.id.my_recycler_view)).perform(RecyclerViewActions.scrollToPosition(1));
+        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
+    }
 
-//    @Test
-//    public void testRecyclerView() {
-//        clickOnTabMatches();
-//        onView(withId(R.id.card_text)).check(matches(withText("Mark the king")));
-//    }
 
 }
 
