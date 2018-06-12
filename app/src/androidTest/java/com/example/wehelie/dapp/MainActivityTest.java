@@ -345,15 +345,17 @@ public class MainActivityTest {
 
     @Test
     public void settingsTabCheck() {
-
+        clickOnTabSettings();
     }
 
 
-    @Test
-    public void testRecyclerView() {
-        clickOnTabMatches();
-        onView(withId(R.id.card_text)).check(matches(withText("Mark the king")));
-    }
+
+
+//    @Test
+//    public void testRecyclerView() {
+//        clickOnTabMatches();
+//        onView(withId(R.id.card_text)).check(matches(withText("Mark the king")));
+//    }
 
 }
 
