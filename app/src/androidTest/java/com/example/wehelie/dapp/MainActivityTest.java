@@ -364,6 +364,43 @@ public class MainActivityTest {
     }
 
 
+    @Test
+    public void someTest() {
+        clickOnTabMatches();
+        onView(withId(R.id.my_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText("Mark the King")),
+                        click()));
+    }
+
+
+    @Test
+    public void testSetting() {
+        clickOnTabSettings();
+        String email = "layth@gmail.com";
+        String gender = "male";
+        String max = "10";
+        String min = "4";
+        String privacy = "public";
+        String reminder = "4pm";
+        String minage = "34";
+        String maxage = "45";
+
+        onView(withId(R.id.userEmail)).perform(typeText(email));
+        onView(withId(R.id.gender)).perform(typeText(gender));
+        onView(withId(R.id.max)).perform(typeText(max));
+        onView(withId(R.id.min)).perform(typeText(min));
+        onView(withId(R.id.privacy)).perform(typeText(privacy));
+        onView(withId(R.id.reminder)).perform(typeText(reminder));
+        onView(withId(R.id.minage)).perform(typeText(minage));
+        onView(withId(R.id.max)).perform(typeText(maxage));
+
+        onView(withId(R.id.settingsButton)).perform(click());
+
+    }
+
+
+
 }
 
 
