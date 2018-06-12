@@ -2,6 +2,8 @@ package com.example.wehelie.dapp;
 
 
 import android.content.pm.ActivityInfo;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -336,17 +338,48 @@ public class MainActivityTest {
                 .check(matches(hasDescendant(withText("Cool Guy Mike"))));
     }
 
-//    @Test
-//    public void testRecyclerView() {
-//        onView(withId(R.id.my_recycler_view))
-//                .perform(scrollToPosition(R.string.like_button))
-//                .check(matches(hasDescendant(withText(R.string.like_button))));
-//    }
+    @Test
+    public void clickOnFavButton() {
+        clickOnTabMatches();
+        onView(withId(R.id.my_recycler_view)).perform(click());
+    }
 
 
+    @Test
+    public void testRecyclerView() {
+        clickOnTabMatches();
+        onView(withId(R.id.card_text)).check(matches(withText("Mark the king")));
+    }
+
+    public static class MyViewAction {
+
+        public static ViewAction clickChildViewWithId(final int id) {
+            return new ViewAction() {
+                @Override
+                public Matcher<View> getConstraints() {
+                    return null;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Click on a child view with specified id.";
+                }
+
+                @Override
+                public void perform(UiController uiController, View view) {
+                    View v = view.findViewById(id);
+                    v.performClick();
+                }
+            };
+        }
+
+    }
 
 
 
 }
+
+
+
 
 
