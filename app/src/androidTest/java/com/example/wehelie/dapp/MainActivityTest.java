@@ -405,15 +405,15 @@ public class MainActivityTest {
     }
 
 
-    @Test
-    public void testUserEmailSetting() {
-        Matcher<View> matcher = allOf(withText("Settings"),
-                isDescendantOfA(withId(R.id.tabs)));
-        onView(matcher).perform(click());
-        onView(withId(R.id.userEmail)).check(matches(isDisplayed()));
-
-    }
-
+//    @Test
+//    public void testUserEmailSetting() {
+//        Matcher<View> matcher = allOf(withText("Settings"),
+//                isDescendantOfA(withId(R.id.tabs)));
+//        onView(matcher).perform(click());
+//        onView(withId(R.id.userEmail)).check(matches(isDisplayed()));
+//
+//    }
+//
 
 
     public class ToastMatcher extends TypeSafeMatcher<Root> {

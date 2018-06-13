@@ -40,7 +40,7 @@ task jacocoTestReport(type : JacocoReport, dependsOn : 'testDebugUnitTest') {
                     '**/*_LifecycleAdapter.*',
                     '**/Constants.class',
                     '**/GPSTracker.class',
-                    '**/MatchesObject.*'
+                    '**/MatchesObject.class*'
             ]
     )
 
