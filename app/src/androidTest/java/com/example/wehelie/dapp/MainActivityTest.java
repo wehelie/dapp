@@ -401,30 +401,13 @@ public class MainActivityTest {
 
 
     @Test
-    public void checkEmailInput() {
+    public void checkAllUserSettingData() {
         clickOnTabSettings();
-        onView(withId(R.id.userEmail)).check(matches(withText("layth@gmail.com")));
-    }
-
-    @Test
-    public void checkGenderInput() {
-        clickOnTabSettings();
+        onView(withId(R.id.userEmail)).check(matches(withText(Email)));
+        onView(withId(R.id.min)).check(matches(withText("10")));
         onView(withId(R.id.gender)).check(matches(withText("male")));
-    }
-
-    @Test
-    public void checkMax() {
-        clickOnTabSettings();
         onView(withId(R.id.max)).check(matches(withText("20")));
     }
-
-
-    @Test
-    public void checkMin() {
-        clickOnTabSettings();
-        onView(withId(R.id.min)).check(matches(withText("10")));
-    }
-
 
 }
 
