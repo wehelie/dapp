@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.IBinder;
 import android.support.test.espresso.Root;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -453,6 +454,13 @@ public class MainActivityTest {
             return false;
         }
 
+    }
+
+
+    @Test
+    public void shouldFailToLoginWithEmptyUserName() {
+        clickOnTabSettings();
+        onView(withId(R.id.userEmail)).check(ViewAssertions.matches(notNullValue()));
     }
 
 
