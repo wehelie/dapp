@@ -36,6 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -401,6 +402,22 @@ public class MainActivityTest {
         onView(withId(R.id.max)).perform(typeText(maxage));
 
         onView(withId(R.id.settingsButton)).perform(click());
+
+    }
+
+    @Test
+    public void testUserSettingInputs() {
+        clickOnTabSettings();
+        String email = "layth@gmail.com";
+        String gender = "male";
+        String max = "10";
+        String min = "4";
+        String privacy = "public";
+        String reminder = "4pm";
+        String minage = "34";
+        String maxage = "45";
+
+        onView(withId(R.id.userEmail)).check(matches(withHint("Email")));
 
     }
 
