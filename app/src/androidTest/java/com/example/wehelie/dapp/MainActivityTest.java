@@ -401,7 +401,7 @@ public class MainActivityTest {
 
 
     @Test
-    public void checkAllUserSettingData() {
+    public void checkAllUserSettingDataa() {
         clickOnTabSettings();
         onView(withId(R.id.userEmail)).check(matches(withText(Email)));
         onView(withId(R.id.min)).check(matches(withText("10")));
