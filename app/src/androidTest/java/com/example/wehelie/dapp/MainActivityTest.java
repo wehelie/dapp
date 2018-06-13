@@ -405,13 +405,14 @@ public class MainActivityTest {
     }
 
 
-//    @Test
-//    public void matchTheToastMessageSetting() {
-//        clickOnTabSettings();
-//        onView(withId(R.id.settingsButton)).perform(click());
-//        onView(withText("Your profile has been saved!")).inRoot(new ToastMatcher())
-//                .check(matches(isDisplayed()));
-//    }
+    @Test
+    public void matchTheToastMessageSetting() {
+        Matcher<View> matcher = allOf(withText("Settings"),
+                isDescendantOfA(withId(R.id.tabs)));
+        onView(matcher).perform(click());
+        onView(matcher).check(matches(isDisplayed()));
+
+    }
 
 
     public class ToastMatcher extends TypeSafeMatcher<Root> {
@@ -435,6 +436,8 @@ public class MainActivityTest {
         }
 
     }
+
+
 
 }
 
