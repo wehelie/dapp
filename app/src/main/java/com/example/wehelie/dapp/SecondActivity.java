@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,41 +39,38 @@ public class SecondActivity extends AppCompatActivity {
 
         Button submit = (Button) findViewById(R.id.submit);
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast warn =  Toast.makeText(SecondActivity.this, "CORRECT ALL ERRORS BEFORE SUBMITTING FORM AGAIN", Toast.LENGTH_SHORT);
+        submit.setOnClickListener(v -> {
+            Toast warn =  Toast.makeText(SecondActivity.this, "CORRECT ALL ERRORS BEFORE SUBMITTING FORM AGAIN", Toast.LENGTH_SHORT);
 
-                String name = editName.getText().toString();
-                String username = editUsername.getText().toString();
-                String dob = editAge.getText().toString();
-                String email = editEmail.getText().toString();
-                String job = editOccupation.getText().toString();
-                String bio = editDescription.getText().toString();
+            String name = editName.getText().toString();
+            String username = editUsername.getText().toString();
+            String dob = editAge.getText().toString();
+            String email = editEmail.getText().toString();
+            String job = editOccupation.getText().toString();
+            String bio = editDescription.getText().toString();
 
 
-                int age = getAge(dob);
+            int age = getAge(dob);
 
-                // start the SecondActivity
-                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
-                intent.putExtra(Constants.KEY_NAME, name);
-                intent.putExtra(Constants.KEY_EMAIL, email);
-                intent.putExtra(Constants.KEY_USERNAME, username);
+            // start the SecondActivity
+            Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+            intent.putExtra(Constants.KEY_NAME, name);
+            intent.putExtra(Constants.KEY_EMAIL, email);
+            intent.putExtra(Constants.KEY_USERNAME, username);
 
-                intent.putExtra(Constants.KEY_OCCUPATION, job);
-                intent.putExtra(Constants.KEY_DESCRIPTION, bio);
+            intent.putExtra(Constants.KEY_OCCUPATION, job);
+            intent.putExtra(Constants.KEY_DESCRIPTION, bio);
 
-                if (name == null || name.equals("")) {
-                    editName.setError("Name field cannot be empty!!");
-                    warn.show();
-                } else if (age < 18 || dob == "") {
-                    editAge.setError("must be 18 or up!");
-                } else {
+            if (name == null || name.equals("")) {
+                editName.setError("Name field cannot be empty!!");
+                warn.show();
+            } else if (age < 18 || dob == "") {
+                editAge.setError("must be 18 or up!");
+            } else {
 
-                    editAge.setText(Integer.toString(age));
-                    intent.putExtra("age", Integer.toString(age));
-                    startActivity(intent);
-                }
+                editAge.setText(Integer.toString(age));
+                intent.putExtra("age", Integer.toString(age));
+                startActivity(intent);
             }
         });
     }
