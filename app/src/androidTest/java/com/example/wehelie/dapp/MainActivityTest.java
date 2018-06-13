@@ -433,12 +433,6 @@ public class MainActivityTest {
     }
 
 
-    @Test
-    public void testMoreSettingInputData() {
-        clickOnTabSettings();
-        onView(withId(R.id.gender)).check(matches(withText("male")));
-    }
-
 
 
     public class ToastMatcher extends TypeSafeMatcher<Root> {
