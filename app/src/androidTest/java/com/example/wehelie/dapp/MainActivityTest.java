@@ -2,6 +2,8 @@ package com.example.wehelie.dapp;
 
 
 import android.content.pm.ActivityInfo;
+import android.os.IBinder;
+import android.support.test.espresso.Root;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -9,6 +11,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -401,12 +406,35 @@ public class MainActivityTest {
 
 
     @Test
-    public void checkAllUserSettingDataa() {
+    public void matchTheToastMessageSetting() {
         clickOnTabSettings();
-        //onView(withId(R.id.userEmail)).check(matches(withText(Email)));
-        onView(withId(R.id.min)).check(matches(withText("10")));
-        onView(withId(R.id.gender)).check(matches(withText("male")));
-        onView(withId(R.id.max)).check(matches(withText("20")));
+
+        onView(withId(R.id.settingsButton)).perform(click());
+
+        onView(withText("Your profile has been saved!")).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
+
+    }
+    public class ToastMatcher extends TypeSafeMatcher<Root> {
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("is toast");
+        }
+
+        @Override
+        public boolean matchesSafely(Root root) {
+            int type = root.getWindowLayoutParams().get().type;
+            if ((type == WindowManager.LayoutParams.TYPE_TOAST)) {
+                IBinder windowToken = root.getDecorView().getWindowToken();
+                IBinder appToken = root.getDecorView().getApplicationWindowToken();
+                if (windowToken == appToken) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 
 }
