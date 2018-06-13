@@ -119,9 +119,9 @@ public class SettingFragment extends Fragment {
         @Override
         protected UserSetting doInBackground(Void... voids) {
             Activity activity = activityWeakReference.get();
-            if (activity == null) {
-                return null;
-            }
+//            if (activity == null) {
+//                return null;
+//            }
 
             AppDatabase db = AppDatabase.getDB(activity.getApplicationContext());
             db.settingsDao().insertAll(userSetting);
@@ -140,9 +140,9 @@ public class SettingFragment extends Fragment {
         @Override
         protected UserSetting doInBackground(Void... voids) {
             Activity activity = activityWeakReference.get();
-            if (activity == null) {
-                return null;
-            }
+//            if (activity == null) {
+//                return null;
+//            }
 
             AppDatabase db = AppDatabase.getDB(activity.getApplicationContext());
             List<UserSetting> users = db.settingsDao().getAll();
