@@ -406,13 +406,14 @@ public class MainActivityTest {
 
 
     @Test
-    public void matchTheToastMessageSetting() {
+    public void testUserEmailSetting() {
         Matcher<View> matcher = allOf(withText("Settings"),
                 isDescendantOfA(withId(R.id.tabs)));
         onView(matcher).perform(click());
-        onView(matcher).check(matches(isDisplayed()));
+        onView(withId(R.id.userEmail)).check(matches(isDisplayed()));
 
     }
+
 
 
     public class ToastMatcher extends TypeSafeMatcher<Root> {
