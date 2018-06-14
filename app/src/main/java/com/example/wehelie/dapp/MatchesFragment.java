@@ -2,49 +2,28 @@ package com.example.wehelie.dapp;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
+import android.content.Context;
 import android.location.Location;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.util.DiffUtil;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.support.design.widget.Snackbar;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
-
-import static android.app.PendingIntent.getActivities;
-import static android.app.PendingIntent.getActivity;
-import static android.content.Intent.getIntent;
-import static android.content.Intent.getIntentOld;
 
 
 public class MatchesFragment extends Fragment {
@@ -191,33 +170,11 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
 
 
-
-        Log.d(TAG, " LONG -----> FROM PHONE " + holder.Longitude);
-
-        Log.d(TAG, " LAT -----> FROM PHONE " + holder.Latitude);
-
-
-        Log.d(TAG, " LAT -----> FROM FIREBASE " + holder.mMatches.lat);
-        Log.d(TAG, " LONG -----> FROM FIREBASE " + holder.mMatches.longitude);
-
-
-
         holder.favoriteButton.setOnClickListener(v -> {
 
             Context context = v.getContext();
 
-
-            if (holder.mMatches.liked) {
-                Toast.makeText(holder.mView.getContext(), "You liked " + mValues.get(position).name, Toast.LENGTH_LONG).show();
-                holder.favoriteButton.setColorFilter(Color.GRAY);
-                holder.mMatches.liked = false;
-
-            } else {
-                holder.favoriteButton.setColorFilter(Color.RED);
-                holder.mMatches.liked = true;
-            }
-
-                mListener.onListFragmentInteraction(holder.mMatches);
+            mListener.onListFragmentInteraction(holder.mMatches);
 
 
         });
