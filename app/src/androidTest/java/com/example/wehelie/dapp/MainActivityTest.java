@@ -464,6 +464,12 @@ public class MainActivityTest {
         onView(withId(R.id.userEmail)).check(ViewAssertions.matches(notNullValue()));
     }
 
+    @Test
+    public void checkAgeInput() {
+        onView(withId(R.id.goback)).perform(click());
+        onView(withId(R.id.editDob)).check(matches(isDisplayed()));
+    }
+
 
 
 }
